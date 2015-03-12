@@ -60,6 +60,31 @@ namespace SessionComparisonTester
             }
         }
 
+
+        private void ButtonDataDir_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new CommonOpenFileDialog();
+            dlg.Title = "Select the data directory";
+            dlg.IsFolderPicker = true;
+            //dlg.InitialDirectory = TextBoxDataDir.Text;  // uses default or recent directory if text is empty or invalid
+
+            //dlg.AddToMostRecentlyUsedList = false;
+            dlg.AllowNonFileSystemItems = false;
+            dlg.DefaultDirectory = Environment.CurrentDirectory;
+            dlg.EnsureFileExists = true;
+            dlg.EnsurePathExists = true;
+            dlg.EnsureReadOnly = false;
+            dlg.EnsureValidNames = true;
+            dlg.Multiselect = false;
+            dlg.ShowPlacesList = true;
+
+            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                var folder = dlg.FileName;
+                LabelDataDir.Content = folder;
+            }
+        }
+
         private void ButtonSessionFile_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new CommonOpenFileDialog();
@@ -89,21 +114,20 @@ namespace SessionComparisonTester
             }
         }
 
-        //private void ButtonDesktopToWeb_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //string cmd = ssprintf("\"%s/R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe\" \"%s/data\" \"%s\" \"%s.websession.zip\"", appPath.c_str(), appPath.c_str(), sessionFile.c_str(), sessionNoExtension.c_str());
-        //    string fullPath = @"R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe";
-        //    ProcessStartInfo psi = new ProcessStartInfo();
-        //    psi.FileName = System.IO.Path.GetFileName(fullPath);
-        //    psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fullPath);
-        //    string outputZip = System.IO.Path.GetFileNameWithoutExtension(LabelSessionFile.Content.ToString()) + ".zip";
-        //    string outputDir = System.IO.Path.GetDirectoryName(LabelSessionFile.Content.ToString()) + "\\";
-        //    psi.Arguments = "\"" + LabelWebFile.Content.ToString() + "\" \"" + LabelSessionFile.Content.ToString() + "\" \"" + outputDir + outputZip + "\"";
-        //    //Debugging
-        //    SetDebugTextAndClipboard(outputDir + outputZip);
-        //    // end debug
-        //    Process.Start(psi);
-        //}
+        private void ButtonDesktopToWeb_Click(object sender, RoutedEventArgs e)
+        {
+            //string cmd = ssprintf("\"%s/R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe\" \"%s/data\" \"%s\" \"%s.websession.zip\"", appPath.c_str(), appPath.c_str(), sessionFile.c_str(), sessionNoExtension.c_str());
+            string fullPath = @"C:\SessionConverter\SessionConverter.exe";
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = System.IO.Path.GetFileName(fullPath);
+            psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fullPath);
+            psi.Arguments = String.Format("\"{0}\" -v \"{1}\" -i \"{2}\" -t \"{3}\" -s \"{4}\" --json-file \"{5}\" --ov-file \"{6}\" --output-type {7}",
+                LabelDataDir.Content.ToString(), "10.1", "5.5", "Global Anchor Peg", "44", LabelWebFile.Content.ToString(), LabelSessionFile.Content.ToString(), "web");   
+            //Debugging
+            SetDebugTextAndClipboard(psi.Arguments);
+            // end debug
+            Process.Start(psi);
+        }
 
         private void ButtonWebToDesktop_Click(object sender, RoutedEventArgs e)
         {
@@ -119,51 +143,53 @@ namespace SessionComparisonTester
 
             //SetDebugTextAndClipboard(System.IO.Path.GetDirectoryName(LabelSessionFile.Content.ToString()) + "\\" + System.IO.Path.GetFileNameWithoutExtension(LabelSessionFile.Content.ToString()) + "\\ExtractedZipFolder");
             
-            using (StreamReader reader = File.OpenText(extractPath + @"\session.json"))
-            {
-                JObject data = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
+            //using (StreamReader reader = File.OpenText(extractPath + @"\session.json"))
+            //{
+            //    JObject data = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                 
-                int implantVersion = (int)data["implantVersion"];
+            //    int implantVersion = (int)data["implantVersion"];
 
-                int implantInclination = (int)data["implantInclination"];
+            //    int implantInclination = (int)data["implantInclination"];
 
-                int implantRoll = (int)data["implantRoll"];
+            //    int implantRoll = (int)data["implantRoll"];
 
-                data["implantVersion"] = implantVersion + 5;
-                data["implantInclination"] = implantInclination + 5;
-                data["implantRoll"] = implantRoll + 5;
+            //    data["implantVersion"] = implantVersion + 5;
+            //    data["implantInclination"] = implantInclination + 5;
+            //    data["implantRoll"] = implantRoll + 5;
 
-                JObject implantPosition = (JObject)data["implantPosition"];
-                // ["Json.NET", "CodePlex"]
+            //    JObject implantPosition = (JObject)data["implantPosition"];
+            //    // ["Json.NET", "CodePlex"]
 
-                float posX = (float)implantPosition["x"];
-                float posY = (float)implantPosition["y"];
-                float posZ = (float)implantPosition["z"];
+            //    float posX = (float)implantPosition["x"];
+            //    float posY = (float)implantPosition["y"];
+            //    float posZ = (float)implantPosition["z"];
 
-                implantPosition["x"] = posX + 10.0f;
-                implantPosition["y"] = posY + 10.0f;
-                implantPosition["z"] = posZ + 10.0f;
-                posX = (float)implantPosition["x"];
+            //    implantPosition["x"] = posX + 10.0f;
+            //    implantPosition["y"] = posY + 10.0f;
+            //    implantPosition["z"] = posZ + 10.0f;
+            //    posX = (float)implantPosition["x"];
 
-                SetDebugTextAndClipboard(String.Format("version: {0}, inclination: {1}, roll: {2}, posX: {3}, posY: {4}, posZ: {5}", implantVersion, implantInclination, implantRoll, posX, posY, posZ));
+            //    SetDebugTextAndClipboard(String.Format("version: {0}, inclination: {1}, roll: {2}, posX: {3}, posY: {4}, posZ: {5}", implantVersion, implantInclination, implantRoll, posX, posY, posZ));
 
-                string modifiedJson = @"c:\testSession.json";
-                File.WriteAllText(modifiedJson, data.ToString());
+                //string modifiedJson = @"c:\testSession.json";
+                //File.WriteAllText(modifiedJson, data.ToString());
 
 
                 //string cmd = ssprintf("\"%s/R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe\" \"%s/data\" \"%s\" \"%s.websession.zip\"", appPath.c_str(), appPath.c_str(), sessionFile.c_str(), sessionNoExtension.c_str());
-                string fullPath = @"R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe";
+                string fullPath = @"C:\SessionConverter\SessionConverter.exe";
                 ProcessStartInfo psi = new ProcessStartInfo();
                 psi.FileName = System.IO.Path.GetFileName(fullPath);
                 psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fullPath);
                 //string outputZip = System.IO.Path.GetFileNameWithoutExtension(LabelSessionFile.Content.ToString()) + ".zip";
                 //string outputDir = System.IO.Path.GetDirectoryName(LabelSessionFile.Content.ToString()) + "\\";
 
-                psi.Arguments = "\"" + LabelWebFile.Content.ToString() + "\" \"" + modifiedJson + "\" \"" + LabelSessionFile.Content.ToString() + "\"";
+                psi.Arguments = String.Format("\"{0}\" --json-file \"{1}\" --ov-file \"{2}\" --output-type {3}",
+                LabelDataDir.Content.ToString(), LabelWebFile.Content.ToString(), LabelSessionFile.Content.ToString(), "desktop");
                 //Debugging
+                SetDebugTextAndClipboard(psi.Arguments);
                 // end debug
                 Process.Start(psi);
-            }
+//            }
 
 
         }
@@ -173,5 +199,6 @@ namespace SessionComparisonTester
             LabelDebug.Content = text;
             System.Windows.Clipboard.SetText(text);
         }
+
     }
 }

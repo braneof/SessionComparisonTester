@@ -1,14 +1,17 @@
 ﻿<Window x:Class="SessionComparisonTester.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="578">
+        Title="MainWindow" Height="380" Width="578">
     <Grid>
-        <Button x:Name="ButtonWebToDesktop" Content="Convert websession to session" HorizontalAlignment="Left" Margin="20,223,0,0" VerticalAlignment="Top" Width="173" Click="ButtonWebToDesktop_Click"/>
+        <Button x:Name="ButtonDesktopToWeb" Content="Run desktop to web tests" HorizontalAlignment="Left" Margin="20,230,0,0" VerticalAlignment="Top" Width="144" Click="ButtonDesktopToWeb_Click"/>
+        <Button x:Name="ButtonWebToDesktop" Content="Run web to desktop tests" HorizontalAlignment="Left" Margin="20,279,0,0" VerticalAlignment="Top" Width="173" Click="ButtonWebToDesktop_Click"/>
+        <Button x:Name="ButtonDataDir" Content="Choose data directory" HorizontalAlignment="Left" Margin="20,91,0,0" VerticalAlignment="Top" Width="123" Click="ButtonDataDir_Click"/>
         <Button x:Name="ButtonWebFile" Content="Choose websession json file" HorizontalAlignment="Left" Margin="20,33,0,0" VerticalAlignment="Top" Width="173" Click="ButtonWebFile_Click"/>
-        <Button x:Name="ButtonSessionFile" Content="Choose OrthoVis session file" HorizontalAlignment="Left" Margin="20,103,0,0" VerticalAlignment="Top" Width="173" Click="ButtonSessionFile_Click" ToolTip="Choose the OrthoVis session file to use"/>
-        <Label x:Name="LabelSessionFile" Content="No file chosen" HorizontalAlignment="Left" Margin="20,128,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonSessionFile" Content="Choose OrthoVis session file" HorizontalAlignment="Left" Margin="20,159,0,0" VerticalAlignment="Top" Width="173" Click="ButtonSessionFile_Click" ToolTip="Choose the OrthoVis session file to use"/>
+        <Label x:Name="LabelSessionFile" Content="No file chosen" HorizontalAlignment="Left" Margin="20,184,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelDataDir" Content="No directory chosen" HorizontalAlignment="Left" Margin="20,116,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LabelWebFile" Content="No file chosen" HorizontalAlignment="Left" Margin="20,58,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelDebug" Content="" HorizontalAlignment="Left" Margin="20,257,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelDebug" Content="" HorizontalAlignment="Left" Margin="20,313,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
