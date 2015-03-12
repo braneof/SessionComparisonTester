@@ -31,13 +31,12 @@ namespace SessionComparisonTester
             InitializeComponent();
         }
 
-        private void ButtonDataDir_Click(object sender, RoutedEventArgs e)
+        private void ButtonWebFile_Click(object sender, RoutedEventArgs e)
         {
-            // Run the tests
             var dlg = new CommonOpenFileDialog();
-            dlg.Title = "Select the data directory";
-            dlg.IsFolderPicker = true;
-            //dlg.InitialDirectory = TextBoxDataDir.Text;  // uses default or recent directory if text is empty or invalid
+            dlg.Title = "Choose an OrthoVis web file";
+            //dlg.IsFolderPicker = true;
+            //dlg.InitialDirectory = TextBoxWebFile.Text;  // uses default or recent directory if text is empty or invalid
 
             //dlg.AddToMostRecentlyUsedList = false;
             dlg.AllowNonFileSystemItems = false;
@@ -51,14 +50,18 @@ namespace SessionComparisonTester
 
             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                var folder = dlg.FileName;
-                LabelDataDir.Content = folder;
+                var webFile = dlg.FileName;
+                LabelWebFile.Content = webFile;
+                /* debug */
+                //string outputZip = System.IO.Path.GetFileNameWithoutExtension(LabelWebFile.Content.ToString()) + ".zip";
+                //string outputDir = System.IO.Path.GetDirectoryName(LabelWebFile.Content.ToString()) + "\\";
+                //SetDebugTextAndClipboard(outputDir + outputZip);
+                /* end debug */
             }
         }
 
         private void ButtonSessionFile_Click(object sender, RoutedEventArgs e)
         {
-            // Run the tests
             var dlg = new CommonOpenFileDialog();
             dlg.Title = "Choose an OrthoVis session file";
             //dlg.IsFolderPicker = true;
@@ -86,23 +89,23 @@ namespace SessionComparisonTester
             }
         }
 
-        private void ButtonDesktopToWeb_Click(object sender, RoutedEventArgs e)
-        {
-            //string cmd = ssprintf("\"%s/R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe\" \"%s/data\" \"%s\" \"%s.websession.zip\"", appPath.c_str(), appPath.c_str(), sessionFile.c_str(), sessionNoExtension.c_str());
-            string fullPath = @"R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe";
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = System.IO.Path.GetFileName(fullPath);
-            psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fullPath);
-            string outputZip = System.IO.Path.GetFileNameWithoutExtension(LabelSessionFile.Content.ToString()) + ".zip";
-            string outputDir = System.IO.Path.GetDirectoryName(LabelSessionFile.Content.ToString()) + "\\";
-            psi.Arguments = "\"" + LabelDataDir.Content.ToString() + "\" \"" + LabelSessionFile.Content.ToString() + "\" \"" + outputDir + outputZip + "\"";
-            //Debugging
-            SetDebugTextAndClipboard(outputDir + outputZip);
-            // end debug
-            Process.Start(psi);
-        }
+        //private void ButtonDesktopToWeb_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //string cmd = ssprintf("\"%s/R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe\" \"%s/data\" \"%s\" \"%s.websession.zip\"", appPath.c_str(), appPath.c_str(), sessionFile.c_str(), sessionNoExtension.c_str());
+        //    string fullPath = @"R:\OrthoVis Releases\OtherTools\WebSessionConverter_latest\SessionConverter.exe";
+        //    ProcessStartInfo psi = new ProcessStartInfo();
+        //    psi.FileName = System.IO.Path.GetFileName(fullPath);
+        //    psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fullPath);
+        //    string outputZip = System.IO.Path.GetFileNameWithoutExtension(LabelSessionFile.Content.ToString()) + ".zip";
+        //    string outputDir = System.IO.Path.GetDirectoryName(LabelSessionFile.Content.ToString()) + "\\";
+        //    psi.Arguments = "\"" + LabelWebFile.Content.ToString() + "\" \"" + LabelSessionFile.Content.ToString() + "\" \"" + outputDir + outputZip + "\"";
+        //    //Debugging
+        //    SetDebugTextAndClipboard(outputDir + outputZip);
+        //    // end debug
+        //    Process.Start(psi);
+        //}
 
-        private void ButtonButtonWebToDesktop_Click(object sender, RoutedEventArgs e)
+        private void ButtonWebToDesktop_Click(object sender, RoutedEventArgs e)
         {
             //string startPath = @"c:\example\start";
             //string zipPath = @"c:\example\result.zip";
@@ -121,10 +124,8 @@ namespace SessionComparisonTester
                 JObject data = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
                 
                 int implantVersion = (int)data["implantVersion"];
-                // James Newton-King
 
                 int implantInclination = (int)data["implantInclination"];
-                // Json.NET 1.3 + New license + Now on CodePlex
 
                 int implantRoll = (int)data["implantRoll"];
 
@@ -158,7 +159,7 @@ namespace SessionComparisonTester
                 //string outputZip = System.IO.Path.GetFileNameWithoutExtension(LabelSessionFile.Content.ToString()) + ".zip";
                 //string outputDir = System.IO.Path.GetDirectoryName(LabelSessionFile.Content.ToString()) + "\\";
 
-                psi.Arguments = "\"" + LabelDataDir.Content.ToString() + "\" \"" + modifiedJson + "\" \"" + LabelSessionFile.Content.ToString() + "\"";
+                psi.Arguments = "\"" + LabelWebFile.Content.ToString() + "\" \"" + modifiedJson + "\" \"" + LabelSessionFile.Content.ToString() + "\"";
                 //Debugging
                 // end debug
                 Process.Start(psi);
