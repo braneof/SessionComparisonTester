@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="380" Width="578">
     <Grid>
-        <Button x:Name="ButtonDesktopToWeb" Content="Run desktop to web tests" HorizontalAlignment="Left" Margin="20,230,0,0" VerticalAlignment="Top" Width="144" Click="ButtonDesktopToWeb_Click"/>
-        <Button x:Name="ButtonWebToDesktop" Content="Run web to desktop tests" HorizontalAlignment="Left" Margin="20,279,0,0" VerticalAlignment="Top" Width="173" Click="ButtonWebToDesktop_Click"/>
         <Button x:Name="ButtonDataDir" Content="Choose data directory" HorizontalAlignment="Left" Margin="20,91,0,0" VerticalAlignment="Top" Width="123" Click="ButtonDataDir_Click"/>
         <Button x:Name="ButtonWebFile" Content="Choose websession json file" HorizontalAlignment="Left" Margin="20,33,0,0" VerticalAlignment="Top" Width="173" Click="ButtonWebFile_Click"/>
         <Button x:Name="ButtonSessionFile" Content="Choose OrthoVis session file" HorizontalAlignment="Left" Margin="20,159,0,0" VerticalAlignment="Top" Width="173" Click="ButtonSessionFile_Click" ToolTip="Choose the OrthoVis session file to use"/>
@@ -12,6 +10,26 @@
         <Label x:Name="LabelDataDir" Content="No directory chosen" HorizontalAlignment="Left" Margin="20,116,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LabelWebFile" Content="No file chosen" HorizontalAlignment="Left" Margin="20,58,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LabelDebug" Content="" HorizontalAlignment="Left" Margin="20,313,0,0" VerticalAlignment="Top"/>
+        <TabControl HorizontalAlignment="Left" Height="138" VerticalAlignment="Top" Width="570" Margin="0,211,0,0">
+            <TabItem Header="Desktop to Web">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="ButtonDesktopToWeb" Content="Run desktop to web tests" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="144" Click="ButtonDesktopToWeb_Click"/>
+                    <Label x:Name="LabelNativeVer" Content="Native Version" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LabelNativeInc" Content="Native Inclination" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LabelImplantName" Content="Implant Name" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="LabelImplantSize" Content="Implant Size" HorizontalAlignment="Left" Margin="460,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TextBoxNativeVer" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Margin="15,36,0,0"/>
+                    <TextBox x:Name="TextBoxNativeInc" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60" Margin="125,36,0,0"/>
+                    <TextBox x:Name="TextBoxImplantName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Margin="235,36,0,0"/>
+                    <TextBox x:Name="TextBoxImplantSize" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" Margin="465,36,0,0"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Web to Desktop">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="ButtonWebToDesktop" Content="Run web to desktop tests" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="146" Click="ButtonWebToDesktop_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

@@ -122,7 +122,7 @@ namespace SessionComparisonTester
             psi.FileName = System.IO.Path.GetFileName(fullPath);
             psi.WorkingDirectory = System.IO.Path.GetDirectoryName(fullPath);
             psi.Arguments = String.Format("\"{0}\" -v \"{1}\" -i \"{2}\" -t \"{3}\" -s \"{4}\" --json-file \"{5}\" --ov-file \"{6}\" --output-type {7}",
-                LabelDataDir.Content.ToString(), "10.1", "5.5", "Global Anchor Peg", "44", LabelWebFile.Content.ToString(), LabelSessionFile.Content.ToString(), "web");   
+                LabelDataDir.Content.ToString(), TextBoxNativeVer.Text, TextBoxNativeInc.Text, TextBoxImplantName.Text, TextBoxImplantSize.Text, LabelWebFile.Content.ToString(), LabelSessionFile.Content.ToString(), "web");   
             //Debugging
             SetDebugTextAndClipboard(psi.Arguments);
             // end debug
