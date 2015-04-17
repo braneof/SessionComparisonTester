@@ -14,10 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Diagnostics;
-using System.IO.Compression;
-using Newtonsoft.Json.Linq;
-using System.IO;
-using Newtonsoft.Json;
 
 namespace SessionComparisonTester
 {
